@@ -1,3 +1,35 @@
+body{
+    height: 660px;
+    width: 1000px;
+    display: flex;
+}
+
+.graveyard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: lightgrey;
+    width: 300px;
+}
+
+.black-graveyard,
+.orange-graveyard {
+    display: flex;
+}
+
+.black-graveyard {
+    flex-wrap: wrap;
+}
+
+.orange-graveyard {
+    flex-wrap: wrap-reverse;
+}
+
+.black-graveyard > *,
+.orange-graveyard > * {
+    padding: 10px;
+}
+
 #main-container {
     display: flex;
     justify-content: center;
@@ -5,6 +37,7 @@
     height: 680px;
     width: 680px;
 }
+
 .column-char {
     display: flex;
     flex-direction: row-reverse ;

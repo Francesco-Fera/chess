@@ -307,10 +307,29 @@ function isEnemyOnWay(newRow, newCol) {
 function movePiece(event) {
   let newPosition = event.target
   if (newPosition.classList.contains('cell-valid')) {
-    newPosition.innerHTML = ''
+    checkEatEnemyPiece(newPosition)
     newPosition.appendChild(pieceSelected.target)
     removeValidMove()
   }
+}
+
+function checkEatEnemyPiece(newPosition) {
+  if (newPosition.children[0] != null) {
+    putInGraveyard(newPosition.firstChild)
+    newPosition.innerHTML = ''
+  }
+}
+
+function putInGraveyard(deadPiece) {
+  let graveyard = document.querySelector(checkTeamGraveyard(deadPiece))
+  graveyard.appendChild(deadPiece)
+}
+
+function checkTeamGraveyard(deadPiece) {
+  if (deadPiece.classList.contains('orange-piece')) {
+    return '.orange-graveyard'
+  }
+  return '.black-graveyard'
 }
 
 // Board Creation
