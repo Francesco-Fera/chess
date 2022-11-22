@@ -303,6 +303,16 @@ function isEnemyOnWay(newRow, newCol) {
   return false
 }
 
+// Move piece
+function movePiece(event) {
+  let newPosition = event.target
+  if (newPosition.classList.contains('cell-valid')) {
+    newPosition.innerHTML = ''
+    newPosition.appendChild(pieceSelected.target)
+    removeValidMove()
+  }
+}
+
 // Board Creation
 window.onload = function () {
   appendChildCellToBoard()
@@ -337,10 +347,18 @@ function setEventsCellClick() {
   })
 }
 
+function setEventsValidCellsClick() {
+  let validCells = document.querySelectorAll('.cell-valid')
+  validCells.forEach((validCell) => {
+    validCell.addEventListener('click', movePiece)
+  })
+}
+
 async function updateFocusPiece(event) {
   getFocusPiecePosition()
   getFocusPiecePossibleMoves()
   highlightValidMoves()
+  setEventsValidCellsClick()
 }
 
 function appendChildPawn() {
