@@ -59,12 +59,13 @@ function getFocusPiecePosition() {
 
 // Piece Moves
 function checkValidMovePawn() {
-  let newRowPosition = actualRow - 1
-  let positionValidMove =
-    newRowPosition.toString() + '-' + actualColumn.toString()
-  document
-    .getElementById(positionValidMove.toString())
-    .classList.add('cell-valid')
+  const moveLimit = 1
+  console.log(actualPlayer)
+  if (actualPlayer == 'orange-piece') {
+    checkTopMoves(moveLimit)
+    return
+  }
+  checkBottomMoves(moveLimit)
 }
 
 function checkValidMoveKing() {
