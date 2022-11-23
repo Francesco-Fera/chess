@@ -5,6 +5,7 @@ var actualPosition
 var actualRow
 var actualColumn
 let possibleMoves
+let actualPlayer = 'orange-piece'
 
 function removeValidMove() {
   var item = document.getElementsByClassName('cell-valid')
@@ -310,6 +311,7 @@ function movePiece(event) {
     checkEatEnemyPiece(newPosition)
     newPosition.appendChild(pieceSelected.target)
     removeValidMove()
+    switchPlayer()
   }
 }
 
@@ -332,6 +334,20 @@ function checkTeamGraveyard(deadPiece) {
   return '.black-graveyard'
 }
 
+// Handle Turns
+
+function switchPlayer() {
+  if (actualPlayer == 'orange-piece') {
+    actualPlayer = 'black-piece'
+    removeEventsOnOrangeClick()
+    setEventsOnBlackClick()
+  } else {
+    actualPlayer = 'orange-piece'
+    removeEventsOnBlackClick()
+    setEventsOnOrangeClick()
+  }
+}
+
 // Board Creation
 window.onload = function () {
   appendChildCellToBoard()
@@ -342,7 +358,7 @@ window.onload = function () {
   appendChildKing()
   appendChildQueen()
 
-  setEventsCellClick()
+  setEventsOnOrangeClick()
 }
 
 function appendChildCellToBoard() {
@@ -354,15 +370,42 @@ function appendChildCellToBoard() {
       document.getElementById('board').appendChild(cell)
     }
   }
-  setEventsCellClick()
+  setEventsOnOrangeClick()
 }
 
-function setEventsCellClick() {
-  let elements = document.querySelectorAll('.cell i')
+function setEventsOnOrangeClick() {
+  let elements = document.querySelectorAll('.cell .orange-piece')
 
   elements.forEach((element) => {
     element.addEventListener('click', getFocusPiece)
     element.addEventListener('click', updateFocusPiece)
+  })
+}
+
+function removeEventsOnOrangeClick() {
+  let elements = document.querySelectorAll('.cell .orange-piece')
+
+  elements.forEach((element) => {
+    element.removeEventListener('click', getFocusPiece)
+    element.removeEventListener('click', updateFocusPiece)
+  })
+}
+
+function setEventsOnBlackClick() {
+  let elements = document.querySelectorAll('.cell .black-piece')
+
+  elements.forEach((element) => {
+    element.addEventListener('click', getFocusPiece)
+    element.addEventListener('click', updateFocusPiece)
+  })
+}
+
+function removeEventsOnBlackClick() {
+  let elements = document.querySelectorAll('.cell .black-piece')
+
+  elements.forEach((element) => {
+    element.removeEventListener('click', getFocusPiece)
+    element.removeEventListener('click', updateFocusPiece)
   })
 }
 
